@@ -148,9 +148,10 @@
 												<textarea name="message" id="message" rows="5"></textarea>
 											</div>
 										</div>
-										<ul class="actions">
+										<!-- <ul class="actions">
 											<li><a href="" class="button submit">Send Message</a></li>
-										</ul>
+										</ul> -->
+										<input id="submit" name="submitbtn" type="submit" value="Submit">
 									</form>
 								</section>
 								<section>
