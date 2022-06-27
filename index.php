@@ -133,7 +133,7 @@
 							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
 							<div class="split style1">
 								<section>
-									<form method="post" action="#">
+									<form method="post" action="index.php">
 										<div class="fields">
 											<div class="field half">
 												<label for="name">Name</label>
@@ -153,6 +153,29 @@
 										</ul> -->
 										<input id="submit" name="submitbtn" type="submit" value="Submit">
 									</form>
+									<?php 
+										$name = $_POST['name'];
+										$email = $_POST['email'];
+										$subject = $_POST['subject'];
+										$message = $_POST['message'];                                                   
+										$from = 'From: My Contact Form';
+										$to = 'hello@lingko.id';
+										$email_subject = 'New Contact Form Submission!';
+										
+										$body = "Name: $name\nE-mail: $email\nSubject: $subject\n\nThe message is below:\n$message";; 
+
+										if (isset($_POST['submitbtn']))
+										{
+											if (mail($to, $email_subject, $body, $from))
+											{
+												echo "<font color=\"green\"><p>Your message has been sent!</p></font>";
+											}
+											else
+											{
+											echo "<font color=\"red\"><p>Your message sending has failed! Please manually email (your email)!</p></font>";
+											}
+										}
+									?>
 								</section>
 								<section>
 									<ul class="contact">
