@@ -144,6 +144,10 @@
 												<input type="text" name="email" id="email" />
 											</div>
 											<div class="field">
+												<label for="subject">Subject</label>
+												<input type="text" name="subject" id="subject" />
+											</div>
+											<div class="field">
 												<label for="message">Message</label>
 												<textarea name="message" id="message" rows="5"></textarea>
 											</div>
@@ -151,9 +155,55 @@
 										<!-- <ul class="actions">
 											<li><a href="" class="button submit">Send Message</a></li>
 										</ul> -->
-										<input id="submit" name="submitbtn" type="submit" value="Submit">
+										<input id="submit" name="submit" type="submit" value="submit">
 									</form>
-									
+									<?php
+
+										$name = $_POST['name'];
+										$email = $_POST['email'];
+										$subject = $_POST['subject'];
+										$message = $_POST['message'];                                                   
+										$from = 'From: <the-email-that-you-want-it-to-come-from>';
+										$to = 'engelbertvione@gmail.com';
+										$email_subject = 'New Contact Form Submission!';
+
+										$body = "Name: $name\nE-mail: $email\nSubject: $subject\n\nThe message is below:\n$message";;
+
+										# Verify that visitor-supplied data used as mail headers does not contain
+										# carriage returns or line feeds. There is no reason for headers like
+										# "To", "From", Subject", etc., to ever contain carriage returns or
+										# line feeds; it almost always indicates some kind of spam attack.
+
+										CheckForProhibitedCharacters ($subject);
+										CheckForProhibitedCharacters ($email);
+
+										# In this example, we don't need to check $to, because no part of
+										# it was supplied by the website visitor. And we don't need to check
+										# $message because it is not being passed to mail() as a header, and
+										# it may actually contain legitimate carriage returns or line feeds.
+
+										function CheckForProhibitedCharacters ($field_input)
+										{
+											# die() if the field contains a carriage return or line feed
+											if (preg_match ("/[\r\n]/", $field_input))
+											{
+												die ("Input field contains a prohibited character");
+											}
+										}
+
+										if (isset($_POST['submit']))
+										{
+											if (mail($to, $email_subject, $body, $from))
+											{
+												echo "<font color=\"green\"><p>Your message has been sent!</p></font>";
+											}
+											else
+											{
+											echo "<font color=\"red\"><p>Your message sending has failed! Please manually email (your email)!</p></font>";
+											}
+										}
+
+									?>
 								</section>
 								<section>
 									<ul class="contact">
